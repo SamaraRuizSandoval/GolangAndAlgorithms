@@ -1,4 +1,4 @@
-# 🧠 Go Algorithms Playground
+## 🧠 Go Algorithms Playground
 
 Welcome to **Go Algorithms Playground** — a personal repository where I sharpen my Go skills by implementing classic and modern algorithmic problems! 🚀  
 This repo contains bite-sized Go functions, data-structure implementations, and comprehensive unit tests to ensure correctness and reliability.  
