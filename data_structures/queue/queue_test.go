@@ -7,7 +7,7 @@ import (
 
 func TestQueue(t *testing.T) {
 	t.Run("IsEmpty when queue is not empty", func(t *testing.T) {
-		queue := SliceQueue{queue: []int{1, 2, 3}}
+		queue := SliceStringQueue{queue: []string{"1", "2", "3"}}
 
 		got := queue.IsEmpty()
 		want := false
@@ -18,7 +18,7 @@ func TestQueue(t *testing.T) {
 	})
 
 	t.Run("IsEmpty when queue is empty", func(t *testing.T) {
-		queue := SliceQueue{queue: []int{}}
+		queue := SliceStringQueue{queue: []string{}}
 
 		got := queue.IsEmpty()
 		want := true
@@ -29,10 +29,10 @@ func TestQueue(t *testing.T) {
 	})
 
 	t.Run("Enqueue to an empty queue", func(t *testing.T) {
-		queue := SliceQueue{queue: []int{}}
+		queue := SliceStringQueue{queue: []string{}}
 
-		queue.Enqueue(5)
-		want := []int{5}
+		queue.Enqueue("5")
+		want := []string{"5"}
 
 		if !slices.Equal(queue.queue, want) {
 			t.Errorf("got %v but want %v", queue.queue, want)
@@ -41,16 +41,16 @@ func TestQueue(t *testing.T) {
 	})
 
 	t.Run("Successful dequeue", func(t *testing.T) {
-		queue := SliceQueue{queue: []int{1, 2, 3, 4}}
+		queue := SliceStringQueue{queue: []string{"1", "2", "3", "4"}}
 
 		got, err := queue.Dequeue()
-		want := 1
-		updatedQueue := []int{2, 3, 4}
+		want := "1"
+		updatedQueue := []string{"2", "3", "4"}
 
 		assertNoError(t, err)
 
 		if got != want {
-			t.Errorf("got %d but want %d", got, want)
+			t.Errorf("got %v but want %v", got, want)
 		}
 
 		if !slices.Equal(queue.queue, updatedQueue) {
@@ -59,7 +59,7 @@ func TestQueue(t *testing.T) {
 	})
 
 	t.Run("Dequeue error", func(t *testing.T) {
-		queue := SliceQueue{queue: []int{}}
+		queue := SliceStringQueue{queue: []string{}}
 
 		_, err := queue.Dequeue()
 
@@ -67,11 +67,11 @@ func TestQueue(t *testing.T) {
 	})
 
 	t.Run("Successful peek", func(t *testing.T) {
-		queue := SliceQueue{queue: []int{1, 2, 3, 4}}
+		queue := SliceStringQueue{queue: []string{"1", "2", "3", "4"}}
 
 		got, err := queue.Peek()
-		want := 1
-		updatedQueue := []int{1, 2, 3, 4}
+		want := "1"
+		updatedQueue := []string{"1", "2", "3", "4"}
 
 		assertNoError(t, err)
 
@@ -85,7 +85,7 @@ func TestQueue(t *testing.T) {
 	})
 
 	t.Run("Peek error", func(t *testing.T) {
-		queue := SliceQueue{queue: []int{}}
+		queue := SliceStringQueue{queue: []string{}}
 
 		_, err := queue.Peek()
 

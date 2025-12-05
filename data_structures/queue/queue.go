@@ -2,26 +2,30 @@ package queue
 
 import "errors"
 
-type SliceQueue struct {
-	queue []int
+type SliceStringQueue struct {
+	queue []string
 }
 
 type Queue interface {
-	Enqueue(item int)
-	Dequeue() (int, error)
-	Peek() (int, error)
+	Enqueue(item string)
+	Dequeue() (string, error)
+	Peek() (string, error)
 	IsEmpty() bool
+}
+
+func NewQueue() *SliceStringQueue {
+	return &SliceStringQueue{}
 }
 
 var ErrEmptyQueue = errors.New("empty queue")
 
-func (sq *SliceQueue) Enqueue(item int) {
+func (sq *SliceStringQueue) Enqueue(item string) {
 	sq.queue = append(sq.queue, item)
 }
 
-func (sq *SliceQueue) Dequeue() (int, error) {
+func (sq *SliceStringQueue) Dequeue() (string, error) {
 	if len(sq.queue) == 0 {
-		return 0, ErrEmptyQueue
+		return "", ErrEmptyQueue
 	}
 
 	front := sq.queue[0]
@@ -30,9 +34,9 @@ func (sq *SliceQueue) Dequeue() (int, error) {
 	return front, nil
 }
 
-func (sq *SliceQueue) Peek() (int, error) {
+func (sq *SliceStringQueue) Peek() (string, error) {
 	if len(sq.queue) == 0 {
-		return 0, ErrEmptyQueue
+		return "", ErrEmptyQueue
 	}
 
 	front := sq.queue[0]
@@ -40,6 +44,6 @@ func (sq *SliceQueue) Peek() (int, error) {
 	return front, nil
 }
 
-func (sq *SliceQueue) IsEmpty() bool {
+func (sq *SliceStringQueue) IsEmpty() bool {
 	return len(sq.queue) == 0
 }
