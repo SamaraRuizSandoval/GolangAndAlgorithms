@@ -1,14 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"os"
+	"time"
 
-	dependencyinjection "github.com/SamaraRuizSandoval/GolangAndAlgorithms/fundamentals/dependency_injection"
+	"github.com/SamaraRuizSandoval/GolangAndAlgorithms/fundamentals/mocking"
 )
 
-func main() {
-	fmt.Println("Hello, World!")
+type DefaultSleeper struct{}
 
-	dependencyinjection.Greet(os.Stdout, "Elodie")
+func (d *DefaultSleeper) Sleep() {
+	time.Sleep(1 * time.Second)
+}
+
+func main() {
+	sleeper := &DefaultSleeper{}
+	mocking.Countdown(os.Stdout, sleeper)
 }
