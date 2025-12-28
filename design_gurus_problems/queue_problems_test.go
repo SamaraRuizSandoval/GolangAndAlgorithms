@@ -75,3 +75,26 @@ func TestPrintMaxCasesTests(t *testing.T) {
 		})
 	}
 }
+
+type PalindromeCases struct {
+	name  string
+	input string
+	want  bool
+}
+
+var palindromeTests = []PalindromeCases{
+	{name: "Example 1", input: "madam", want: true},
+	{name: "Example 2", input: "openai", want: false},
+	{name: "Example 3", input: "A man a plan a canal Panama", want: true},
+}
+
+func TestPalindrome(t *testing.T) {
+	for _, tt := range palindromeTests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := CheckPalindrome(tt.input)
+			if tt.want != got {
+				t.Errorf("For input %v, expected %v, got %v", tt.input, tt.want, got)
+			}
+		})
+	}
+}

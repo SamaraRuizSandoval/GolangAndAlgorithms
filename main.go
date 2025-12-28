@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/SamaraRuizSandoval/GolangAndAlgorithms/fundamentals/mocking"
+	linkedlist "github.com/SamaraRuizSandoval/GolangAndAlgorithms/data_structures/linkedList"
 )
 
 type DefaultSleeper struct{}
@@ -14,6 +14,13 @@ func (d *DefaultSleeper) Sleep() {
 }
 
 func main() {
-	sleeper := &DefaultSleeper{}
-	mocking.Countdown(os.Stdout, sleeper)
+	list := linkedlist.SinglyLinkedList{}
+
+	// Creating linked list: 10 → 20 → 30 → 40 → NULL
+	list.Head = &linkedlist.ListNode{Val: 10}
+	list.Head.Next = &linkedlist.ListNode{Val: 20}
+	list.Head.Next.Next = &linkedlist.ListNode{Val: 30}
+	list.Head.Next.Next.Next = &linkedlist.ListNode{Val: 40}
+
+	list.Traverse(os.Stdout)
 }

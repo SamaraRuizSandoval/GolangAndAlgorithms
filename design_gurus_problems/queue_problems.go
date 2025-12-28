@@ -35,6 +35,15 @@ func GenerateBinaryNumbers(n int) []string {
 
 func PrintMax(arr []int, k int) []int {
 	result := []int{}
-
+	// ToDo
 	return result
+}
+
+//? Given a string s, determine if that string is a palindrome using a queue data structure. Return true if that string is a palindrome, otherwise return false
+// Input: s = "madam"
+// Output: true
+
+func CheckPalindrome(str string) bool {
+	// ToDo: We need a double sided queue
+	return false
 }
