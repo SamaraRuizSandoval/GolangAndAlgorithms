@@ -38,7 +38,7 @@ func TestSinglyLinkedList(t *testing.T) {
 		list.Traverse(&buffer)
 
 		got := buffer.String()
-		want := "5 → 10 → 20 → 40 → "
+		want := "5 → 10 → 20 → 30 → 40 → "
 
 		if got != want {
 			t.Errorf("got %q but want %q", got, want)
@@ -79,6 +79,63 @@ func TestSinglyLinkedList(t *testing.T) {
 		err := list.InsertAtPosition(25, 8)
 
 		assertError(t, err, ErrInvalidPosition)
+	})
+
+	t.Run("Delete the front node", func(t *testing.T) {
+		buffer := bytes.Buffer{}
+		err := list.DeleteAtPosition(0)
+		list.Traverse(&buffer)
+
+		got := buffer.String()
+		want := "10 → 20 → 30 → 40 → "
+
+		assertNoError(t, err)
+		if got != want {
+			t.Errorf("got %q but want %q", got, want)
+		}
+	})
+
+	t.Run("Delete empty list", func(t *testing.T) {
+		emptyList := SinglyLinkedList{}
+		err := emptyList.DeleteAtPosition(0)
+
+		assertError(t, err, ErrInvalidPosition)
+
+	})
+
+	t.Run("Delete a node in the middle", func(t *testing.T) {
+		buffer := bytes.Buffer{}
+		err := list.DeleteAtPosition(1)
+		list.Traverse(&buffer)
+
+		got := buffer.String()
+		want := "10 → 30 → 40 → "
+
+		assertNoError(t, err)
+		if got != want {
+			t.Errorf("got %q but want %q", got, want)
+		}
+	})
+
+	t.Run("Delete a node in the tail", func(t *testing.T) {
+		buffer := bytes.Buffer{}
+		err := list.DeleteAtPosition(2)
+		list.Traverse(&buffer)
+
+		got := buffer.String()
+		want := "10 → 30 → "
+
+		assertNoError(t, err)
+		if got != want {
+			t.Errorf("got %q but want %q", got, want)
+		}
+	})
+
+	t.Run("Delete a node in an invalid position", func(t *testing.T) {
+		err := list.DeleteAtPosition(7)
+
+		assertError(t, err, ErrInvalidPosition)
+
 	})
 }
 
