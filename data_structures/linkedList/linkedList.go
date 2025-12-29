@@ -8,6 +8,7 @@ import (
 )
 
 var ErrInvalidPosition = errors.New("invalid linkedList position")
+var ErrListIsEmpty = errors.New("list is empty")
 
 type ListNode struct {
 	Val  int
@@ -22,12 +23,12 @@ type SinglyLinkedList struct {
 
 type DoubleListNode struct {
 	Val  int
-	Next *ListNode
-	Prev *ListNode
+	Next *DoubleListNode
+	Prev *DoubleListNode
 }
 
 type DoubleLinkedList struct {
-	Head *ListNode
+	Head *DoubleListNode
 }
 
 func (list *SinglyLinkedList) Traverse(writer io.Writer) {
@@ -93,7 +94,7 @@ func (list *DoubleLinkedList) TraverseForward(writer io.Writer) {
 	current := list.Head
 
 	for current != nil {
-		fmt.Fprintf(writer, "%v → ", current.Val)
+		fmt.Fprintf(writer, "%v ⇄ ", current.Val)
 		current = current.Next
 	}
 
@@ -102,9 +103,84 @@ func (list *DoubleLinkedList) TraverseForward(writer io.Writer) {
 func (list *DoubleLinkedList) TraverseBackward(writer io.Writer) {
 	current := list.Head
 
-	for current != nil {
-		fmt.Fprintf(writer, "%v → ", current.Val)
+	if list.Head == nil {
+		return
+	}
+
+	for current.Next != nil {
 		current = current.Next
 	}
+
+	for current != nil {
+		fmt.Fprintf(writer, "%v ⇄ ", current.Val)
+		current = current.Prev
+	}
+
+}
+
+func (list *DoubleLinkedList) InsertAtPosition(val, position int) error {
+	newNode := &DoubleListNode{Val: val, Next: nil, Prev: nil}
+
+	if position == 0 {
+		newNode.Next = list.Head
+
+		if list.Head != nil {
+			list.Head.Prev = newNode
+		}
+
+		list.Head = newNode
+		return nil
+	}
+
+	current := list.Head
+	for i := 1; i <= position-1 && current != nil; i++ {
+		current = current.Next
+	}
+
+	if current == nil {
+		return ErrInvalidPosition
+	}
+
+	newNode.Next = current.Next
+	if current.Next != nil {
+		current.Next.Prev = newNode
+	}
+	current.Next = newNode
+	newNode.Prev = current
+	return nil
+}
+
+func (list *DoubleLinkedList) DeleteAtPosition(position int) error {
+	if list.Head == nil {
+		return ErrInvalidPosition
+	}
+
+	if position == 0 {
+		if list.Head.Next == nil {
+			list.Head = nil
+			return nil
+		}
+
+		list.Head = list.Head.Next
+		list.Head.Prev = nil
+		return nil
+	}
+
+	current := list.Head
+	for i := 0; i < position-1 && current != nil; i++ {
+		current = list.Head.Next
+	}
+
+	if current == nil || current.Next == nil {
+		return ErrInvalidPosition
+	}
+
+	toDeleteNode := current.Next
+	current.Next = toDeleteNode.Next
+	if toDeleteNode.Next != nil {
+		toDeleteNode.Next.Prev = current
+	}
+
+	return nil
 
 }
