@@ -1,4 +1,4 @@
-package dgQueueProblems
+package designgurusproblems
 
 import (
 	"slices"

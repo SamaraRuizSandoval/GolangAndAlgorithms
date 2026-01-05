@@ -1,4 +1,4 @@
-package dgQueueProblems
+package designgurusproblems
 
 import (
 	"github.com/SamaraRuizSandoval/GolangAndAlgorithms/data_structures/queue"
