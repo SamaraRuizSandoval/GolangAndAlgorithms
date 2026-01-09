@@ -13,16 +13,11 @@ type RemoveDuplicates struct {
 	want  string
 }
 
-var exampleOne = linkedlist.ListNode{Val: 1, Next: &linkedlist.ListNode{Val: 1, Next: &linkedlist.ListNode{Val: 2, Next: nil}}}
-var exampleTwo = linkedlist.ListNode{Val: 1, Next: &linkedlist.ListNode{Val: 2, Next: &linkedlist.ListNode{Val: 2, Next: &linkedlist.ListNode{Val: 3, Next: nil}}}}
-var exampleThree = linkedlist.ListNode{Val: 3, Next: &linkedlist.ListNode{Val: 3, Next: &linkedlist.ListNode{Val: 3, Next: nil}}}
-var exampleFour = linkedlist.ListNode{Val: 1, Next: &linkedlist.ListNode{Val: 1, Next: &linkedlist.ListNode{Val: 2, Next: &linkedlist.ListNode{Val: 3, Next: &linkedlist.ListNode{Val: 4, Next: &linkedlist.ListNode{Val: 4, Next: nil}}}}}}
-
 var testRemoveDuplicates = []RemoveDuplicates{
-	{name: "Example 1", input: exampleOne, want: "1 → 2 → "},
-	{name: "Example 2", input: exampleTwo, want: "1 → 2 → 3 → "},
-	{name: "Example 3", input: exampleThree, want: "3 → "},
-	{name: "Example 4", input: exampleFour, want: "1 → 2 → 3 → 4 → "},
+	{name: "Example 1", input: *makeList(1, 1, 2), want: "1 → 2 → "},
+	{name: "Example 2", input: *makeList(1, 2, 2, 3), want: "1 → 2 → 3 → "},
+	{name: "Example 3", input: *makeList(3, 3, 3), want: "3 → "},
+	{name: "Example 4", input: *makeList(1, 1, 2, 3, 4, 4), want: "1 → 2 → 3 → 4 → "},
 }
 
 func TestRemoveDuplicates(t *testing.T) {
