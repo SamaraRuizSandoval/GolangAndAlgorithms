@@ -51,3 +51,31 @@ func MergeTwoLists(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist
 
 	return newNode.Next
 }
+
+//? Given a doubly linked list, determine whether it is a palindrome.
+// Input: 1 <-> 2 <-> 3 <-> 2 <-> 1
+// Output: true
+
+func IsPalindrome(head *linkedlist.DoubleListNode) bool {
+	var tail *linkedlist.DoubleListNode
+	current := head
+
+	if head == nil || head.Next == nil {
+		return true
+	}
+
+	for current.Next != nil {
+		current = current.Next
+	}
+	tail = current
+
+	for head != nil {
+		if head.Val != tail.Val {
+			return false
+		}
+		head = head.Next
+		tail = tail.Prev
+	}
+
+	return true
+}

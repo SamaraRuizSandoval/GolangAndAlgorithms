@@ -92,3 +92,42 @@ func makeList(vals ...int) *linkedlist.ListNode {
 	}
 	return head
 }
+
+type IsPalindromeTest struct {
+	name  string
+	input linkedlist.DoubleListNode
+	want  bool
+}
+
+var testIsPalindrome = []IsPalindromeTest{
+	{name: "Example 1", input: *makeDoubledLinkedList(1, 2, 3, 2, 1), want: true},
+	{name: "Example 2", input: *makeDoubledLinkedList(1, 2, 2, 3), want: false},
+	{name: "Example 3", input: *makeDoubledLinkedList(1, 1, 1, 1), want: true},
+}
+
+func TestIsPalindrome(t *testing.T) {
+	for _, tt := range testIsPalindrome {
+		t.Run(tt.name, func(t *testing.T) {
+			result := IsPalindrome(&tt.input)
+
+			if result != tt.want {
+				t.Errorf("got %v but want %v", result, tt.want)
+			}
+
+		})
+	}
+}
+
+func makeDoubledLinkedList(vals ...int) *linkedlist.DoubleListNode {
+	if len(vals) == 0 {
+		return nil
+	}
+	head := &linkedlist.DoubleListNode{Val: vals[0], Prev: nil}
+	curr := head
+	for _, v := range vals[1:] {
+		curr.Next = &linkedlist.DoubleListNode{Val: v}
+		curr.Next.Prev = curr
+		curr = curr.Next
+	}
+	return head
+}
