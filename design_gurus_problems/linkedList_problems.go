@@ -79,3 +79,29 @@ func IsPalindrome(head *linkedlist.DoubleListNode) bool {
 
 	return true
 }
+
+//? Given a singly linked list, swap every two adjacent nodes and return the head of the modified list.
+//? If the total number of nodes in the list is odd, the last node remains in place.
+// Input: [1, 2, 3, 4]
+// Output: [2, 1, 4, 3]
+
+func SwapPairs(head *linkedlist.ListNode) *linkedlist.ListNode {
+	dummy := &linkedlist.ListNode{Val: 0, Next: head}
+	prev := dummy
+
+	for prev.Next != nil && prev.Next.Next != nil {
+		first := prev.Next
+		second := first.Next
+
+		// Swap
+		first.Next = second.Next
+		second.Next = first
+		prev.Next = second
+
+		// Move prev forward
+		prev = first
+
+	}
+
+	return dummy.Next
+}

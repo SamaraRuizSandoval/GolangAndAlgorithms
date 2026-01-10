@@ -126,3 +126,28 @@ func makeDoubledLinkedList(vals ...int) *linkedlist.DoubleListNode {
 	}
 	return head
 }
+
+var testSwapPairs = []RemoveDuplicates{
+	{name: "Example 1", input: *makeList(1, 2, 3, 4), want: "2 → 1 → 4 → 3 → "},
+	{name: "Example 2", input: *makeList(7, 8, 9, 10, 11), want: "8 → 7 → 10 → 9 → 11 → "},
+	{name: "Example 3", input: *makeList(5, 6), want: "6 → 5 → "},
+}
+
+func TestSwapPairs(t *testing.T) {
+	for _, tt := range testSwapPairs {
+		t.Run(tt.name, func(t *testing.T) {
+			result := SwapPairs(&tt.input)
+			list := linkedlist.SinglyLinkedList{Head: result}
+
+			buffer := bytes.Buffer{}
+			list.Traverse(&buffer)
+
+			got := buffer.String()
+
+			if got != tt.want {
+				t.Errorf("got %q but want %q", got, tt.want)
+			}
+
+		})
+	}
+}
