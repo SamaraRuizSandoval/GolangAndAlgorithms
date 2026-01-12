@@ -11,8 +11,6 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-type BinarySearchTree struct{}
-
 func InorderTraversal(writer io.Writer, root *TreeNode) {
 	if root == nil {
 		return

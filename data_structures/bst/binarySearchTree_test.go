@@ -17,7 +17,7 @@ func TestBinarySearchTree(t *testing.T) {
 		//       /
 		//      4
 
-		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		tree := MakeTree(8, 3, 10, 14, 1, 6, 4)
 		InorderTraversal(&buffer, tree)
 		got := buffer.String()
 		want := "1 3 4 6 8 10 14 "
@@ -67,7 +67,7 @@ func TestBinarySearchTree(t *testing.T) {
 	})
 
 	t.Run("Search element that exists", func(t *testing.T) {
-		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		tree := MakeTree(8, 3, 10, 14, 1, 6, 4)
 		result := Search(tree, 6)
 
 		if result == nil {
@@ -77,7 +77,7 @@ func TestBinarySearchTree(t *testing.T) {
 	})
 
 	t.Run("Search element that doesn't exists", func(t *testing.T) {
-		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		tree := MakeTree(8, 3, 10, 14, 1, 6, 4)
 		result := Search(tree, 87)
 
 		if result != nil {
@@ -97,7 +97,7 @@ func TestBinarySearchTree(t *testing.T) {
 		//       /
 		//      4
 
-		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		tree := MakeTree(8, 3, 10, 14, 1, 6, 4)
 		updatedTree := DeleteNode(tree, 4)
 		InorderTraversal(&buffer, updatedTree)
 		got := buffer.String()
@@ -119,7 +119,7 @@ func TestBinarySearchTree(t *testing.T) {
 		//       /
 		//      4
 
-		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		tree := MakeTree(8, 3, 10, 14, 1, 6, 4)
 		updatedTree := DeleteNode(tree, 10)
 		InorderTraversal(&buffer, updatedTree)
 		got := buffer.String()
@@ -141,7 +141,7 @@ func TestBinarySearchTree(t *testing.T) {
 		//       /
 		//      4
 
-		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		tree := MakeTree(8, 3, 10, 14, 1, 6, 4)
 		updatedTree := DeleteNode(tree, 3)
 		InorderTraversal(&buffer, updatedTree)
 		got := buffer.String()
@@ -153,7 +153,7 @@ func TestBinarySearchTree(t *testing.T) {
 	})
 }
 
-func makeTree(vals ...int) *TreeNode {
+func MakeTree(vals ...int) *TreeNode {
 	if len(vals) == 0 {
 		return nil
 	}
