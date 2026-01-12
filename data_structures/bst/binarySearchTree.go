@@ -44,11 +44,46 @@ func Search(node *TreeNode, key int) *TreeNode {
 		return node
 	}
 
-	fmt.Printf("Checking %v", node.Val)
-
 	if node.Val > key {
 		return Search(node.Left, key)
 	}
 
 	return Search(node.Right, key)
+}
+
+func DeleteNode(node *TreeNode, key int) *TreeNode {
+	if node == nil {
+		return nil
+	}
+
+	if key < node.Val {
+		node.Left = DeleteNode(node.Left, key)
+	} else if key > node.Val {
+		node.Right = DeleteNode(node.Right, key)
+	} else { // Node found, handle deletion
+		// Case 1: Node has no left child
+		if node.Left == nil {
+			return node.Right
+		}
+		// Case 2: Node has no right child
+		if node.Right == nil {
+			return node.Left
+		}
+
+		// Case 3: Node has two children
+		successor := minValueNode(node.Right)              // Find inorder successor
+		node.Val = successor.Val                           // Copy the successor's value
+		node.Right = DeleteNode(node.Right, successor.Val) // Delete the successor
+	}
+
+	return node
+}
+
+// Helper method to find the inorder successor (smallest node in right subtree)
+func minValueNode(node *TreeNode) *TreeNode {
+	current := node
+	for current.Left != nil {
+		current = current.Left
+	}
+	return current
 }

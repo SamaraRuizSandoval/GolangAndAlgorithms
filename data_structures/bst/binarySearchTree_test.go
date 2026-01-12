@@ -85,6 +85,72 @@ func TestBinarySearchTree(t *testing.T) {
 
 		}
 	})
+
+	t.Run("Remove leaf node", func(t *testing.T) {
+		buffer := bytes.Buffer{}
+
+		//         8
+		//       /   \
+		//      3     10
+		//     / \      \
+		//    1   6      14
+		//       /
+		//      4
+
+		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		updatedTree := DeleteNode(tree, 4)
+		InorderTraversal(&buffer, updatedTree)
+		got := buffer.String()
+		want := "1 3 6 8 10 14 "
+
+		if got != want {
+			t.Errorf("got %q but want %q", got, want)
+		}
+	})
+
+	t.Run("Remove node with one child", func(t *testing.T) {
+		buffer := bytes.Buffer{}
+
+		//         8
+		//       /   \
+		//      3     10
+		//     / \      \
+		//    1   6      14
+		//       /
+		//      4
+
+		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		updatedTree := DeleteNode(tree, 10)
+		InorderTraversal(&buffer, updatedTree)
+		got := buffer.String()
+		want := "1 3 4 6 8 14 "
+
+		if got != want {
+			t.Errorf("got %q but want %q", got, want)
+		}
+	})
+
+	t.Run("Remove node with two childs", func(t *testing.T) {
+		buffer := bytes.Buffer{}
+
+		//         8
+		//       /   \
+		//      3     10
+		//     / \      \
+		//    1   6      14
+		//       /
+		//      4
+
+		tree := makeTree(8, 3, 10, 14, 1, 6, 4)
+		updatedTree := DeleteNode(tree, 3)
+		InorderTraversal(&buffer, updatedTree)
+		got := buffer.String()
+		want := "1 4 6 8 10 14 "
+
+		if got != want {
+			t.Errorf("got %q but want %q", got, want)
+		}
+	})
 }
 
 func makeTree(vals ...int) *TreeNode {
