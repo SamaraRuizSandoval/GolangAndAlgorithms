@@ -1,6 +1,10 @@
 package designgurusproblems
 
-import "github.com/SamaraRuizSandoval/GolangAndAlgorithms/data_structures/bst"
+import (
+	"math"
+
+	"github.com/SamaraRuizSandoval/GolangAndAlgorithms/data_structures/bst"
+)
 
 //? Given a root node of the binary tree, return the depth (or height) of a binary tree.
 //The Depth of the binary tree refers to the number of nodes along the longest path from the root node to the farthest leaf
@@ -34,6 +38,32 @@ func MaxDepth(root *bst.TreeNode) int {
 //? Determine if a binary tree is height-balanced.
 
 func IsBalanced(root *bst.TreeNode) bool {
-	// ToDo: Write Your Code Here.
-	return false
+	return depth(root) != -1
+}
+
+// depth is a helper function to get the depth of the tree from a given node
+func depth(node *bst.TreeNode) int {
+	if node == nil {
+		return 0
+	}
+
+	leftDepth := depth(node.Left)
+	// If the left subtree is unbalanced, we return -1 to indicate it's not balanced
+	if leftDepth == -1 {
+		return -1
+	}
+
+	rightDepth := depth(node.Right)
+	// If the right subtree is unbalanced, we return -1 to indicate it's not balanced
+	if rightDepth == -1 {
+		return -1
+	}
+
+	// If the current node is unbalanced, return -1 to indicate it's not balanced
+	if math.Abs(float64(leftDepth-rightDepth)) > 1 {
+		return -1
+	}
+
+	// If it's balanced, we return the depth of the current subtree
+	return int(math.Max(float64(leftDepth), float64(rightDepth))) + 1
 }

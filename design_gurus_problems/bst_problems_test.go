@@ -40,13 +40,47 @@ var maximumHeightTestCases = []TestMaximumHeight{
 	{name: "Example 2", input: makeTree(8, 10, 16), want: 3},
 	{name: "Example 3", input: makeTree(8, 3, 10, 1, 4, 6), want: 4},
 	{name: "Example 4", input: makeTree(), want: 0},
-	{name: "Example 4", input: makeTree(1), want: 1},
+	{name: "Example 5", input: makeTree(1), want: 1},
 }
 
 func TestMaximumHeightProblem(t *testing.T) {
 	for _, tt := range maximumHeightTestCases {
 		t.Run(tt.name, func(t *testing.T) {
 			got := MaxDepth(tt.input)
+
+			if got != tt.want {
+				t.Errorf("got %v but want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+type TestIsBalanced struct {
+	name  string
+	input *bst.TreeNode
+	want  bool
+}
+
+//Example 3: [10,8,12,6,15,4,18]
+//         10
+//       /   \
+//      8     12
+//     /       \
+//    6         15
+//   /           \
+//  4             18
+
+var IsBalancedTestCases = []TestIsBalanced{
+	{name: "Example 1", input: makeTree(8, 3, 10, 1, 6), want: true},
+	{name: "Example 2", input: makeTree(8, 10, 16), want: false},
+	{name: "Example 3", input: makeTree(8, 3, 10, 1, 4, 6), want: false},
+	{name: "Example 3", input: makeTree(10, 8, 12, 6, 15, 4, 18), want: false},
+}
+
+func TestIsBalancedProblem(t *testing.T) {
+	for _, tt := range IsBalancedTestCases {
+		t.Run(tt.name, func(t *testing.T) {
+			got := IsBalanced(tt.input)
 
 			if got != tt.want {
 				t.Errorf("got %v but want %v", got, tt.want)
