@@ -67,3 +67,30 @@ func depth(node *bst.TreeNode) int {
 	// If it's balanced, we return the depth of the current subtree
 	return int(math.Max(float64(leftDepth), float64(rightDepth))) + 1
 }
+
+//? Given a Binary Search Tree (BST), you are required to find the smallest difference between the values of any two different nodes.
+
+var minDiff int
+var previous *int
+
+func MinDiffInBST(root *bst.TreeNode) int {
+	minDiff = root.Val
+	previous = nil
+	ReverseInOrderTraversal(root)
+	return minDiff
+}
+
+func ReverseInOrderTraversal(node *bst.TreeNode) {
+	if node == nil {
+		return
+	}
+	ReverseInOrderTraversal(node.Right)
+	if previous != nil {
+		diff := *previous - node.Val
+		if diff < minDiff {
+			minDiff = diff
+		}
+	}
+	previous = &node.Val
+	ReverseInOrderTraversal(node.Left)
+}

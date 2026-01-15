@@ -74,13 +74,55 @@ var IsBalancedTestCases = []TestIsBalanced{
 	{name: "Example 1", input: makeTree(8, 3, 10, 1, 6), want: true},
 	{name: "Example 2", input: makeTree(8, 10, 16), want: false},
 	{name: "Example 3", input: makeTree(8, 3, 10, 1, 4, 6), want: false},
-	{name: "Example 3", input: makeTree(10, 8, 12, 6, 15, 4, 18), want: false},
+	{name: "Example 4", input: makeTree(10, 8, 12, 6, 15, 4, 18), want: false},
 }
 
 func TestIsBalancedProblem(t *testing.T) {
 	for _, tt := range IsBalancedTestCases {
 		t.Run(tt.name, func(t *testing.T) {
 			got := IsBalanced(tt.input)
+
+			if got != tt.want {
+				t.Errorf("got %v but want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+// Example 1 [4,2,6,1,3]
+//     4
+//    / \
+//   2   6
+//  / \
+// 1   3
+// Output: 1
+
+// Example 2 [10,5,15,2,7,18]
+//     10
+//    /  \
+//   5   15
+//  / \    \
+// 2   7   18
+// Output: 2
+
+// Example 3 [40,70,50,90]
+//   40
+//    \
+//     70
+//    /  \
+//   50  90
+// Output: 10
+
+var MinimumDiffTestCases = []TestMaximumHeight{
+	{name: "Example 1", input: makeTree(4, 2, 6, 1, 3), want: 1},
+	{name: "Example 2", input: makeTree(10, 5, 15, 2, 7, 18), want: 2},
+	{name: "Example 3", input: makeTree(40, 70, 50, 90), want: 10},
+}
+
+func TestMinimumDifference(t *testing.T) {
+	for _, tt := range MinimumDiffTestCases {
+		t.Run(tt.name, func(t *testing.T) {
+			got := MinDiffInBST(tt.input)
 
 			if got != tt.want {
 				t.Errorf("got %v but want %v", got, tt.want)
