@@ -131,6 +131,69 @@ func TestMinimumDifference(t *testing.T) {
 	}
 }
 
+type RangeSumInput struct {
+	tree  *bst.TreeNode
+	Left  int
+	Right int
+}
+
+type RangeSumTests struct {
+	name  string
+	input RangeSumInput
+	want  int
+}
+
+// Example 1 [10,5,15,3,7,18]
+// Tree:
+//    10
+//   /  \
+//  5   15
+// / \   \
+// 3   7   18
+
+// Range: [7, 15]
+// Output: 32
+
+// Example 2 [20,5,25,3,10]
+// Tree:
+//   20
+//   /  \
+//  5   25
+// / \
+// 3   10
+
+// Range: [3, 10]
+// Output: 18
+
+// Example 3 [30,35,32]
+// Tree:
+//    30
+//      \
+//      35
+//     /
+//    32
+
+// Range: [30, 34]
+// Output: 62
+
+var RangeSumCases = []RangeSumTests{
+	{name: "Example 1", input: RangeSumInput{tree: makeTree(10, 5, 15, 3, 7, 18), Left: 7, Right: 15}, want: 32},
+	{name: "Example 2", input: RangeSumInput{tree: makeTree(20, 5, 25, 3, 10), Left: 3, Right: 10}, want: 18},
+	{name: "Example 3", input: RangeSumInput{tree: makeTree(30, 35, 32), Left: 30, Right: 34}, want: 62},
+}
+
+func TestRangeSum(t *testing.T) {
+	for _, tt := range RangeSumCases {
+		t.Run(tt.name, func(t *testing.T) {
+			got := RangeSumBST(tt.input.tree, tt.input.Left, tt.input.Right)
+
+			if got != tt.want {
+				t.Errorf("got %v but want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func makeTree(vals ...int) *bst.TreeNode {
 	if len(vals) == 0 {
 		return nil

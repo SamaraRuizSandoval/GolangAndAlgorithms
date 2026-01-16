@@ -94,3 +94,40 @@ func ReverseInOrderTraversal(node *bst.TreeNode) {
 	previous = &node.Val
 	ReverseInOrderTraversal(node.Left)
 }
+
+//? Given a Binary Search Tree (BST) and a range defined by two integers, L and R, calculate the sum of all the values of nodes that fall within this range.
+// The node's value is inclusive within the range if and only if L <= node's value <= R.
+
+// Example
+// Tree:
+//    10
+//   /  \
+//  5   15
+// / \   \
+// 3   7   18
+
+// Range: [7, 15]
+// Output: 32
+
+var list []int
+
+func RangeSumBST(root *bst.TreeNode, L int, R int) int {
+	list = []int{}
+	InorderTraversalListAppend(root)
+	sum := 0
+	for _, val := range list {
+		if val >= L && val <= R {
+			sum += val
+		}
+	}
+	return sum
+}
+
+func InorderTraversalListAppend(node *bst.TreeNode) {
+	if node == nil {
+		return
+	}
+	InorderTraversalListAppend(node.Left)
+	list = append(list, node.Val)
+	InorderTraversalListAppend(node.Right)
+}
