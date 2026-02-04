@@ -131,3 +131,43 @@ func InorderTraversalListAppend(node *bst.TreeNode) {
 	list = append(list, node.Val)
 	InorderTraversalListAppend(node.Right)
 }
+
+//? Given a root node of the Binary Search Tree (BST) and integer 'k'.
+// Return the Kth smallest element among all node values of the binary tree.
+
+// Example
+//     8
+//    / \
+//   3   10
+//  / \    \
+// 1   6    14
+//    /  \  /
+//   4   7  13
+// k = 4
+
+// Output: 6
+
+type kthSmallestSolution struct {
+	count  int
+	result int
+}
+
+func (s *kthSmallestSolution) kthSmallest(root *bst.TreeNode, k int) int {
+	s.traverse(root, k)
+	return s.result
+}
+
+// traverse is a recursive function to do an in-order traversal of the BST.
+// We stop traversing once we've visited `k` nodes.
+func (s *kthSmallestSolution) traverse(node *bst.TreeNode, k int) {
+	if node == nil || s.count >= k {
+		return
+	}
+
+	s.traverse(node.Left, k)
+	s.count++
+	if s.count == k {
+		s.result = node.Val
+	}
+	s.traverse(node.Right, k)
+}

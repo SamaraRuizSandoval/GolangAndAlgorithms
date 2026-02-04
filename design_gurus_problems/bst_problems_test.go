@@ -207,3 +207,50 @@ func makeTree(vals ...int) *bst.TreeNode {
 	}
 	return root
 }
+
+// Example 1: [8,3,10,1,6,14,13,4,6], k = 4
+//     8
+//    / \
+//   3   10
+//  / \    \
+// 1   6    14
+//    /  \  /
+//   4   7  13
+// Output: 6
+
+// Example 2: [5,2,6,1], k = 3
+//     5
+//    / \
+//   2   6
+//  /
+// 1
+// Output: 5
+
+type KthSmallestInput struct {
+	tree *bst.TreeNode
+	k    int
+}
+
+type KthSmallestTests struct {
+	name  string
+	input KthSmallestInput
+	want  int
+}
+
+var KthSmallestCases = []KthSmallestTests{
+	{name: "Example 1", input: KthSmallestInput{tree: makeTree(8, 3, 10, 1, 6, 14, 13, 4, 6), k: 4}, want: 6},
+	{name: "Example 2", input: KthSmallestInput{tree: makeTree(5, 2, 6, 1), k: 3}, want: 5},
+	{name: "Example 3", input: KthSmallestInput{tree: makeTree(30, 35, 32), k: 2}, want: 32},
+}
+
+func TestKthSmallest(t *testing.T) {
+	for _, tt := range KthSmallestCases {
+		kthSolution := &kthSmallestSolution{}
+		t.Run(tt.name, func(t *testing.T) {
+			got := kthSolution.kthSmallest(tt.input.tree, tt.input.k)
+			if got != tt.want {
+				t.Errorf("got %v but want %v", got, tt.want)
+			}
+		})
+	}
+}
