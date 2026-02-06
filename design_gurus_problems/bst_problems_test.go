@@ -254,3 +254,56 @@ func TestKthSmallest(t *testing.T) {
 		})
 	}
 }
+
+type ClosestValueInput struct {
+	tree   *bst.TreeNode
+	target float64
+}
+
+type ClosestValueTests struct {
+	name  string
+	input ClosestValueInput
+	want  int
+}
+
+// Example 1: [5,3,8,1,4,6,9], target = 6.4
+//       5
+//    /    \
+//   3      8
+//  / \    / \
+// 1   4  6   9
+// Output: 6
+
+// Example 2: [1], target = 4.428571
+//   1
+// Output: 1
+
+// Example 3: [20,10,30], target = 25
+//         20
+//       /   \
+//      10     30
+// Output: 20
+
+// Example 4: [2,1,3], target = 2.9
+//   2
+//  / \
+// 1   3
+// Output: 3
+
+var ClosestValueCases = []ClosestValueTests{
+	{name: "Example 1", input: ClosestValueInput{tree: makeTree(5, 3, 8, 1, 4, 6, 9), target: 6.4}, want: 6},
+	{name: "Example 2", input: ClosestValueInput{tree: makeTree(1), target: 4.428571}, want: 1},
+	{name: "Example 3", input: ClosestValueInput{tree: makeTree(20, 10, 30), target: 25}, want: 20},
+	{name: "Example 4", input: ClosestValueInput{tree: makeTree(2, 1, 3), target: 2.9}, want: 3},
+}
+
+func TestClosestValue(t *testing.T) {
+	for _, tt := range ClosestValueCases {
+		t.Run(tt.name, func(t *testing.T) {
+			got := ClosestValue(tt.input.tree, tt.input.target)
+			if got != tt.want {
+				t.Errorf("got %v but want %v", got, tt.want)
+			}
+		})
+	}
+}

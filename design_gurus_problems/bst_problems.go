@@ -171,3 +171,39 @@ func (s *kthSmallestSolution) traverse(node *bst.TreeNode, k int) {
 	}
 	s.traverse(node.Right, k)
 }
+
+//? Given a binary search tree (BST) and a target number, find a node value in the BST that is closest to the given target.
+// If there are multiple answers, print the smallest
+
+// Example
+//    2
+//  /   \
+// 1     3
+// Target: 2.9
+// Output: 3
+
+func ClosestValue(root *bst.TreeNode, target float64) int {
+	closestVal := root.Val
+
+	// Traverse the tree starting from the root.
+	for root != nil {
+		// Check if the current node's value is closer to the target than the previous closest value.
+		// If so, update closestVal.
+		if math.Abs(target-float64(root.Val)) < math.Abs(target-float64(closestVal)) {
+			closestVal = root.Val
+		} else if math.Abs(target-float64(root.Val)) == math.Abs(target-float64(closestVal)) {
+			// If two values are equally close, pick the smaller one.
+			if root.Val < closestVal {
+				closestVal = root.Val
+			}
+		}
+
+		// Decide the direction to traverse.
+		if target < float64(root.Val) {
+			root = root.Left
+		} else {
+			root = root.Right
+		}
+	}
+	return closestVal
+}
